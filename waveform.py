@@ -61,7 +61,7 @@ class TimingDiagram:
             raise Exception('Can only set CLK once per timing diagram.')
         self.wave_list.append(wave)
         if isclk:
-            self.clk_index = len(self.wave_list)
+            self.clk_index = len(self.wave_list) - 1 # most recent is clock
 
     def setRisingFalling(self, isrising):
         """Set if active clock edge is rising or falling.
@@ -72,5 +72,11 @@ class TimingDiagram:
             self.rising_edge = 1
         else:
             self.rising_edge = 0
+
+    def printWaves(self):
+        for i,wave in enumerate(self.wave_list):
+            if self.clk_index == i:
+                print('*', end='')
+            print(wave.label, wave.ticks, sep='\t')
 
 

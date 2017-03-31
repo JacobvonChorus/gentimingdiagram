@@ -15,9 +15,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-def __startSVG(timingdiagram, fsvg):
+textHeight = 10
+charWidth = 7.5
+lineHeight = 20
+tickWidth = 20
+spacing = 10
+
+def __startSVG(timingDiagram, fsvg):
     """Determine necessary file sizes and start file"""
     fsvg.write('<?xml version="1.0" encoding="UTF-8" ?>\n')
+    maxlabel = max(len(wave.label) for wave in timingDiagram.wave_list)
+    print(maxlabel)
+
 
 def __stopSVG(filename, fsvg):
     """Finish and output file"""
@@ -30,4 +39,3 @@ def timingDiagramToSVG(timingdiagram, filename):
     __stopSVG(filename, fsvg)
     fsvg.close()
 
-timingDiagramToSVG(0, 'output.svg')

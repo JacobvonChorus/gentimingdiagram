@@ -15,5 +15,40 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import sys
+import waveform
+import wavetosvg
 
+timingDiagram = waveform.TimingDiagram()
 
+def parseWaveLine(timingLine):
+    global timingDiagram
+    label = timingLine.split()[0]
+    ticks = timingLine.split('$')[1]
+    newWaveform = waveform.Wave(label, ticks)
+    timingDiagram.addWave(newWaveform, label == 'CLK')
+
+# expects: binary name, input file, output
+if len(sys.argv) != 3:
+    print('usage: gentiming.py timingdata svg\n' +
+            '\t timingdata: plain text waveform input\n' +
+            '\t svg: output SVG image')
+    sys.exit(1)
+inputfile = sys.argv[1]
+outputsvg = sys.argv[2]
+
+# Create TimingDiagram from file, the object is a global variable
+with open(inputfile, 'r') as ftiming:
+    isfirst = True # First line contains config
+    for timingLine in ftiming:
+        if isfirst: # Parse config
+            isfirst = False
+            pass # TODO: finish config line
+        else:
+            if not timingLine[0].isalnum():
+                pass # Ignore blank lines
+            else:
+                parseWaveLine(timingLine)
+
+timingDiagram.printWaves()
+wavetosvg.timingDiagramToSVG(timingDiagram, outputsvg)
