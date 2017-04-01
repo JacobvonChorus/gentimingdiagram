@@ -24,7 +24,7 @@ timingDiagram = waveform.TimingDiagram()
 def parseWaveLine(timingLine):
     global timingDiagram
     label = timingLine.split()[0]
-    ticks = timingLine.split('$')[1]
+    ticks = timingLine.split('$')[1].rstrip('\n')
     newWaveform = waveform.Wave(label, ticks)
     timingDiagram.addWave(newWaveform, label == 'CLK')
 

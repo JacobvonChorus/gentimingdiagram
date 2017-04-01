@@ -77,6 +77,6 @@ class TimingDiagram:
         for i,wave in enumerate(self.wave_list):
             if self.clk_index == i:
                 print('*', end='')
-            print(wave.label, wave.ticks, sep='\t')
+            print(wave.label, wave.ticks, sep='\t\t')
 
 
