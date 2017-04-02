@@ -21,12 +21,15 @@ import wavetosvg
 
 timingDiagram = waveform.TimingDiagram()
 
+
 def parseWaveLine(timingLine):
     global timingDiagram
     label = timingLine.split()[0]
     ticks = timingLine.split('$')[1].rstrip('\n')
     newWaveform = waveform.Wave(label, ticks)
     timingDiagram.addWave(newWaveform, label == 'CLK')
+
+
 
 # expects: binary name, input file, output
 if len(sys.argv) != 3:
@@ -43,12 +46,11 @@ with open(inputfile, 'r') as ftiming:
     for timingLine in ftiming:
         if isfirst: # Parse config
             isfirst = False
-            pass # TODO: finish config line
+            wavetosvg.parseConfigLine(timingLine)
         else:
             if not timingLine[0].isalnum():
                 pass # Ignore blank lines
             else:
                 parseWaveLine(timingLine)
 
-timingDiagram.printWaves()
 wavetosvg.timingDiagramToSVG(timingDiagram, outputsvg)

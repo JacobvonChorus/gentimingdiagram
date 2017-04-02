@@ -35,6 +35,7 @@ class Wave:
         self.label = label
         self.ticks = ticks
 
+
 class TimingDiagram:
     """An array of waveforms
 

@@ -1,5 +1,7 @@
-SHOW_VERT
-
+SHOW_VERT, SHOW_ARROW, ITALIC_CLK
+ 
+D1		$__--_____--
+D2		$--__-----__
 CLK		$_-_-_-_-_-_-
 
 DEEEEEEE	$--__--___-__
